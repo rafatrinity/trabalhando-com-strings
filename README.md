@@ -1,5 +1,5 @@
 # trabalhando-com-strings
-aps de programação estruturada parte 2.
+
 objetivo:
 
 APS – Parte II
@@ -28,4 +28,4 @@ deverá ser apresentado no início do algoritmo em forma de comentário:
   // Nome do segundo Integrante = 310;
 Obs: Podem ser utilizadas bibliotecas auxiliares, a exemplo <string.h>
 
-será publicado dia 27/04/2017 para que não haja plagio.
+#será publicado dia 27/04/2017 para que não haja plagio.
