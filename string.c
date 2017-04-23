@@ -6,27 +6,58 @@
 int main()
 {
 	char nome[A][B];
-	int total[A], tam, i, j;
+	int total[A], vogal[A][B], vog, tam, i, j;
 	for (i = 0; i < A; i++)
 	{
 		printf("\nInforme seu nome: ");
 		fgets(nome[i],B,stdin);
 		//getchar();
 	}
+
 	for (i = 0; i < A; i++)
 	{
-		tam=-1;
+		int z=1;
 		j=0;
-		while(nome[i][j] != '\0')
+		vog=0;
+		//total de letras e espaços do nome
+		tam=strlen(nome[i]);
+		for (int y = 0; y <= B; y++)
 		{
-			if (nome[i][j] != ' ')
+			vogal[i][y]=0;
+		}
+		while(j<tam){
+			if (nome[i][j] == ' ')
 			{
-				tam++;
-				printf("%c",nome[i][j]);
+				z++;
+			}
+			switch(nome[i][j]){
+				case 'a':
+				vogal[i][0]=1;
+				break;
+				case 'e':
+				vogal[i][1]=1;
+				break;
+				case 'i':
+				vogal[i][2]=1;
+				break;
+				case 'o':
+				vogal[i][3]=1;
+				break;
+				case 'u':
+				vogal[i][4]=1;
+				break;
 			}
 			j++;
 		}
-		printf("%d\n",tam);
+		for (int k = 0; k < B; k++)
+		{
+			vog+=vogal[i][k];
+		}
+
+		//retirando os espaços
+		tam-=z;
+		printf("\ntotal de letras do %i° nome: %d\n",(i+1),tam);
+		printf("total de vogais diferentes do %i° nome: %d\n",(i+1),vog);
 	}
 /*
 	for (i = 0; i <=A; i++){
@@ -46,4 +77,4 @@ int main()
 	}
 */
 	return 0;
-} 
+}
