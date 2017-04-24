@@ -5,8 +5,8 @@
 #include <string.h>
 int main()
 {
-	char nome[A][B];
-	int total[A], vogal[A][B], vog, tam, i, j;
+	char nome[A][B], consoante[A][B], tipo[A][1];
+	int total[A], vogal[A][B], vog, con[A], tam, i, j;
 	for (i = 0; i < A; i++)
 	{
 		printf("\nInforme seu nome: ");
@@ -17,19 +17,23 @@ int main()
 	for (i = 0; i < A; i++)
 	{
 		int z=1;
+		con[i]=0;
 		j=0;
 		vog=0;
 		//total de letras e espaços do nome
 		tam=strlen(nome[i]);
+		//zerando matriz
 		for (int y = 0; y <= B; y++)
 		{
 			vogal[i][y]=0;
 		}
 		while(j<tam){
+			//contando espaços
 			if (nome[i][j] == ' ')
 			{
 				z++;
 			}
+			//diferenciando vogais de consoantes e contando
 			switch(nome[i][j]){
 				case 'a':
 				vogal[i][0]=1;
@@ -46,9 +50,17 @@ int main()
 				case 'u':
 				vogal[i][4]=1;
 				break;
+				default:
+				if (j==0)
+				{
+					tipo[i][0]='c';
+				}
+				consoante[i][con[i]]=nome[i][j];
+				con[i]++;
 			}
 			j++;
 		}
+
 		for (int k = 0; k < B; k++)
 		{
 			vog+=vogal[i][k];
@@ -56,15 +68,24 @@ int main()
 
 		//retirando os espaços
 		tam-=z;
+		//testando
 		printf("\ntotal de letras do %i° nome: %d\n",(i+1),tam);
 		printf("total de vogais diferentes do %i° nome: %d\n",(i+1),vog);
+		if (tipo[i][0]=='c')
+		{
+			printf("a 1ª letra do %i° nome e consoante\n",(i+1));
+		}
+		else{
+			printf("a 1ª letra do %i° nome e vogal\n",(i+1));
+		}
+		
 	}
-/*
+
 	for (i = 0; i <=A; i++){
 		total[i]=0;
 		for(j = 0; j <=i; j++){
 	    // Caso a primeira letra do nome seja vogal
-			if ((nome[i][1]=='a')||(nome[i][1]=='e')||(nome[i][1]=='i')||(nome[i][1]=='o')||(nome[i][1]=='u'))
+			if(tipo[i][0]!='c')
 			{
 				total[i] += i * j;
 			}
@@ -75,6 +96,5 @@ int main()
 		}
 		printf("%d\n",total[i]);
 	}
-*/
 	return 0;
 }
