@@ -5,7 +5,7 @@
 #include <string.h>
 
 int totletras[A];
-
+//contando as letras sem os espaços
 int tot(char nome[A][B]){
 	int esp[A], tam[A];
 	for (int i = 0; i < A; i++)
@@ -33,7 +33,6 @@ int main()
 		fgets(nome[i],B,stdin);
 		//getchar();
 	}
-	//contando as letras sem os espaços
 	tot(nome);
 	for (i = 0; i < A; i++)
 	{
