@@ -46,7 +46,7 @@ int main()
 		{
 			vogal[i][y]=0;
 		}
-		while(j<totletras[i]){
+		while(j<strlen(nome[i])){
 			//diferenciando vogais de consoantes e contando
 			switch(nome[i][j]){
 				case 'a':
@@ -67,11 +67,11 @@ int main()
 				case ' ':
 				break;
 				default:
+				consoante[i][con[i]]=nome[i][j];
 				if (j==0)
 				{
 					tipo[i][0]='c';
 				}
-				consoante[i][con[i]]=nome[i][j];
 				con[i]++;
 			}
 			j++;
@@ -92,9 +92,9 @@ int main()
 		}
 		
 		//testando
-		printf("%s%d\n",consoante[i],con[i]);
 		printf("\ntotal de letras do %i° nome: %d\n",(i+1),totletras[i]);
 		printf("total de vogais diferentes do %i° nome: %d\n",(i+1),vog);
+		printf("\nconsoantes: %s\ntotal: %d\n",consoante[i],con[i]);
 		if (tipo[i][0]=='c')
 		{
 			printf("a 1ª letra do %i° nome e consoante\n",(i+1));
@@ -102,7 +102,6 @@ int main()
 		else{
 			printf("a 1ª letra do %i° nome e vogal\n",(i+1));
 		}
-		
 	}
 
 	for (i = 0; i <=A; i++){
