@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 int totletras[A];
 //contando as letras sem os espaços
@@ -25,8 +26,9 @@ int tot(char nome[A][B]){
 
 int main()
 {
+	setlocale(LC_ALL,"portuguesse");
 	char nome[A][B], consoante[A][B], tipo[A][1];
-	int total[A], vogal[A][B], vog, con[A], i, j;
+	int total[A], vogal[A][B], vog, con[A],igual[A],diferente[A], vd[A], i, j;
 	for (i = 0; i < A; i++)
 	{
 		printf("\nInforme seu nome: ");
@@ -40,6 +42,8 @@ int main()
 		con[i]=0;
 		j=0;
 		vog=0;
+		igual[i]=0;
+		diferente[i]=0;
 		
 		//zerando matriz
 		for (int y = 0; y <= B; y++)
@@ -76,16 +80,24 @@ int main()
 			}
 			j++;
 		}
+
+		int t=0;
 		for (int d = 0; d < con[i]; d++)
 		{
 			for (int e = 0; e < con[i]; e++)
 			{
 				if (consoante[i][e]==consoante[i][d])
 				{
-					
+					igual[i]++;
 				}
+				t++;
 			}
 		}
+		diferente[i]=(igual[i]-con[i]);
+		diferente[i]/=2;
+		vd[i]=con[i]-diferente[i];
+		vd[i]-=1;
+
 		for (int k = 0; k < B; k++)
 		{
 			vog+=vogal[i][k];
@@ -94,7 +106,7 @@ int main()
 		//testando
 		printf("\ntotal de letras do %i° nome: %d\n",(i+1),totletras[i]);
 		printf("total de vogais diferentes do %i° nome: %d\n",(i+1),vog);
-		printf("\nconsoantes: %s\ntotal: %d\n",consoante[i],con[i]);
+		printf("consoantes: %sconsoantes diferentes: %d\n",consoante[i],vd[i]);
 		if (tipo[i][0]=='c')
 		{
 			printf("a 1ª letra do %i° nome e consoante\n",(i+1));
@@ -104,6 +116,8 @@ int main()
 		}
 	}
 
+
+/*
 	for (i = 0; i <=A; i++){
 		total[i]=0;
 		for(j = 0; j <=i; j++){
@@ -120,4 +134,5 @@ int main()
 		printf("%d",total[i]);
 	}
 	return 0;
+	*/
 }
