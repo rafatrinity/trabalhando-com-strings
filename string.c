@@ -127,8 +127,9 @@ int main()
 					total += v + j;
 				}
 			}
-			printf("resultado da operação: %d\n",total);
 		}
+		printf("resultado da operação: %d\n",total);
+		printf("resultado final: %d\n",(totletras[i]+vog+vd[i]));
 	}
 	return 0;
 }
