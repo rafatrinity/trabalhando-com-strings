@@ -28,7 +28,7 @@ int main()
 {
 	setlocale(LC_ALL,"portuguesse");
 	char nome[A][B], consoante[A][B], tipo[A][1];
-	int total[A], vogal[A][B], vog, con[A],igual[A],diferente[A], vd[A], i, j;
+	int total, vogal[A][B], vog, con[A],igual[A],diferente[A], vd[A], i, j;
 	for (i = 0; i < A; i++)
 	{
 		printf("\nInforme seu nome: ");
@@ -109,30 +109,26 @@ int main()
 		printf("consoantes: %sconsoantes diferentes: %d\n",consoante[i],vd[i]);
 		if (tipo[i][0]=='c')
 		{
-			printf("a 1ª letra do %i° nome e consoante\n",(i+1));
+			printf("a 1ª letra do %i° nome é consoante\n",(i+1));
 		}
 		else{
-			printf("a 1ª letra do %i° nome e vogal\n",(i+1));
+			printf("a 1ª letra do %i° nome é vogal\n",(i+1));
 		}
-	}
-
-
-/*
-	for (i = 0; i <=A; i++){
-		total[i]=0;
-		for(j = 0; j <=i; j++){
-	    // Caso a primeira letra do nome seja vogal
-			if(tipo[i][0]!='c')
-			{
-				total[i] += i * j;
+		for (int v = 0; v <=vog; v++){
+			total=0;
+			for(j = 0; j <=v; j++){
+	    		// Caso a primeira letra do nome seja vogal
+				if(tipo[i][0]!='c')
+				{
+					total += v * j;
+				}
+	    		// Caso a primeira letra do nome seja consoante
+				else{
+					total += v + j;
+				}
 			}
-	    // Caso a primeira letra do nome seja consoante
-			else{
-				total[i] += i + j;
-			}
+			printf("resultado da operação: %d\n",total);
 		}
-		printf("%d",total[i]);
 	}
 	return 0;
-	*/
 }
