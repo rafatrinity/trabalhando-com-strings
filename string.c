@@ -5,6 +5,7 @@
 #include <string.h>
 #include <locale.h>
 #include <ctype.h>
+#include <unistd.h>
 
 int totletras[A];
 //contando as letras sem os espaços
@@ -24,15 +25,52 @@ int tot(char nome[A][B]){
 		totletras[i]=(tam[i]-esp[i])-1;
 	}
 }
-
+/*
+	.::::.  ::      .::::.  ||
+	::  ::  ::      ::  ::  ||
+	::  ::  ::      ::::::  ||
+	*::::*  ::::::  ::  ::  ::
+*/
 int main()
 {
 	setlocale(LC_ALL,"portuguesse");
-	char nome[A][B], consoante[A][B], tipo[A][1];
+	char nome[A][B], consoante[A][B], tipo[A][1], SISTEMA, refazer;
 	int total, vogal[A][B], vog, con[A],igual[A],diferente[A], vd[A], i, j;
+	printf("\t.::::.  ::      .::::.  ||\n");
+	usleep(200000);
+	printf("\t::  ::  ::      ::  ::  ||\n");
+	usleep(200000);
+	printf("\t::  ::  ::      ::::::  ||\n");
+	usleep(200000);
+	printf("\t*::::*  ::::::  ::  ::  ::\n\n");
+	printf("\tPOR GENTILEZA, INFORME QUAL SISTEMA OPERACIONAL VC UTILIZA:\nD=DOS\nU=UNIX\n\n");
+	printf("\tDUVIDAS? DIGITE (i) PARA MAIS INFORMAÇÕES\n");
+	pergunta:
+	fflush(stdin);
+	scanf("%c",&SISTEMA);
+	SISTEMA=toupper(SISTEMA);
+	inicio:
+	switch(SISTEMA){
+		case 'D':
+		system("cls");
+		fflush(stdin);
+		break;
+		case 'U':
+		system("clear");
+		getchar();
+		break;
+		case 'I':
+		printf("\nDOS = Window\nUNIX = Mac e Linux(há exeções)");
+		getchar();
+		goto pergunta;
+		break;
+		default:
+		printf("\nENTRADA INVALIDA, FAVOR DIGITAR SOMENTE AS LETRAS INDICADAS\n");
+		goto pergunta;
+	}
 	for (i = 0; i < A; i++)
 	{
-		printf("\nInforme seu nome: ");
+		printf("\nInforme o %dº nome: ",(i+1));
 		fgets(nome[i],B,stdin);
 		//convertendo para minusculas
 		for (j = 0; j < B; j++)
@@ -40,7 +78,17 @@ int main()
 			//o Linux não da suporte para função strlwr();
 			nome[i][j]=tolower(nome[i][j]);
 		}
+		if (SISTEMA=='D')
+			system("cls");
+		else
+			system("clear");
+
 	}
+	if (SISTEMA=='D')
+		system("cls");
+	else
+		system("clear");
+	
 	tot(nome);
 	for (i = 0; i < A; i++)
 	{
@@ -108,17 +156,33 @@ int main()
 		{
 			vog+=vogal[i][k];
 		}
-				//testando
-		printf("\ntotal de letras do %i° nome: %d\n",(i+1),totletras[i]);
-		printf("total de vogais diferentes do %i° nome: %d\n",(i+1),vog);
-		printf("consoantes: %sconsoantes diferentes: %d\n",consoante[i],vd[i]);
+		//testando
+		nome[i][0]=toupper(nome[i][0]);
+		for (int h = 0; h < strlen(nome[i]); h++)
+		{
+			if (nome[i][h]==' ')
+			{
+				nome[i][h+1]=toupper(nome[i][h+1]);
+			}
+		}
+
+		usleep(200000);
+		printf("NOME: %s",nome[i]);
+		usleep(200000);
+		printf("\nTOTAL DE LETRAS DO %i° NOME: %d\n",(i+1),totletras[i]);
+		usleep(200000);
+		printf("\nTOTAL DE VOGAIS DIFERENTES DO %i° NOME: %d\n",(i+1),vog);
+		usleep(200000);
+		printf("\nCONSOANTES: %s \nCONSOANTES DIFERENTES: %d\n",consoante[i],vd[i]);
 		if (tipo[i][0]=='c')
 		{
-			printf("a 1ª letra do %i° nome é consoante\n",(i+1));
+			printf("\nA 1ª LETRA DO %i° NOME É CONSOANTE\n",(i+1));
 		}
 		else{
-			printf("a 1ª letra do %i° nome é vogal\n",(i+1));
+			printf("\nA 1ª LETRA DO %i° NOME É VOGAL\n",(i+1));
 		}
+		usleep(200000);
+
 		for (int v = 0; v <=vog; v++){
 			total=0;
 			for(j = 0; j <=v; j++){
@@ -133,8 +197,25 @@ int main()
 				}
 			}
 		}
-		printf("resultado da operação: %d\n",total);
-		printf("resultado final: %d\n",(totletras[i]+vog+vd[i]+total));
+		usleep(200000);
+		printf("\nRESULTADO DA OPERAÇÃO: %d\n",total);
+		usleep(200000);
+		printf("\nRESULTADO FINAL: %d\n",(totletras[i]+vog+vd[i]+total));
+		printf("======================================================\n\n");
+	}
+	if (SISTEMA=='U')
+	{
+		getchar();
+	}
+	else{
+		system("pause");
+	}
+	printf("\tDESEJA REFAZER O TESTE COM MAIS 2 NOMES?\nS=SIM\nQUALQUER OUTRA=NÃO");
+	scanf("%c",&refazer);
+	refazer=toupper(refazer);
+	if (refazer=='S')
+	{
+		goto inicio;
 	}
 	return 0;
 }
