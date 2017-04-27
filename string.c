@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <ctype.h>
 
 int totletras[A];
 //contando as letras sem os espaços
@@ -33,7 +34,12 @@ int main()
 	{
 		printf("\nInforme seu nome: ");
 		fgets(nome[i],B,stdin);
-		//getchar();
+		//convertendo para minusculas
+		for (j = 0; j < B; j++)
+		{
+			//o Linux não da suporte para função strlwr();
+			nome[i][j]=tolower(nome[i][j]);
+		}
 	}
 	tot(nome);
 	for (i = 0; i < A; i++)
@@ -102,8 +108,7 @@ int main()
 		{
 			vog+=vogal[i][k];
 		}
-		
-		//testando
+				//testando
 		printf("\ntotal de letras do %i° nome: %d\n",(i+1),totletras[i]);
 		printf("total de vogais diferentes do %i° nome: %d\n",(i+1),vog);
 		printf("consoantes: %sconsoantes diferentes: %d\n",consoante[i],vd[i]);
@@ -129,7 +134,7 @@ int main()
 			}
 		}
 		printf("resultado da operação: %d\n",total);
-		printf("resultado final: %d\n",(totletras[i]+vog+vd[i]));
+		printf("resultado final: %d\n",(totletras[i]+vog+vd[i]+total));
 	}
 	return 0;
 }
