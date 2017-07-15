@@ -6,6 +6,7 @@
 #include <locale.h>
 #include <ctype.h>
 #include <unistd.h>
+#include "sis.h"
 
 int totletras[A];
 //contando as letras sem os espaços
@@ -18,77 +19,33 @@ int tot(char nome[A][B]){
 		for (int j = 0; j < tam[i]; j++)
 		{
 			if (nome[i][j]==' ')
-			{
 				esp[i]++;
-			}
 		}
 		totletras[i]=(tam[i]-esp[i])-1;
 	}
 }
-/*
-	.::::.  ::      .::::.  ||
-	::  ::  ::      ::  ::  ||
-	::  ::  ::      ::::::  ||
-	*::::*  ::::::  ::  ::  ::
-*/
+
+
 int main()
 {
 	setlocale(LC_ALL,"portuguesse");
 	char nome[A][B], consoante[A][B], tipo[A][1], SISTEMA, refazer;
 	int total, vogal[A][B], vog, con[A],igual[A],diferente[A], vd[A], i, j;
-	printf("\t.::::.  ::      .::::.  ||\n");
-	usleep(200000);
-	printf("\t::  ::  ::      ::  ::  ||\n");
-	usleep(200000);
-	printf("\t::  ::  ::      ::::::  ||\n");
-	usleep(200000);
-	printf("\t*::::*  ::::::  ::  ::  ::\n\n");
-	printf("\tPOR GENTILEZA, INFORME QUAL SISTEMA OPERACIONAL VC UTILIZA:\nD=DOS\nU=UNIX\n\n");
-	printf("\tDUVIDAS? DIGITE (i) PARA MAIS INFORMAÇÕES\n");
-	pergunta:
-	fflush(stdin);
-	scanf("%c",&SISTEMA);
-	SISTEMA=toupper(SISTEMA);
+	apresenta();
+	cab();
+	getchar();
 	inicio:
-	switch(SISTEMA){
-		case 'D':
-		system("cls");
-		fflush(stdin);
-		break;
-		case 'U':
-		system("clear");
-		getchar();
-		break;
-		case 'I':
-		printf("\nDOS = Window\nUNIX = Mac e Linux(há exeções)");
-		getchar();
-		goto pergunta;
-		break;
-		default:
-		printf("\nENTRADA INVALIDA, FAVOR DIGITAR SOMENTE AS LETRAS INDICADAS\n");
-		goto pergunta;
-	}
 	for (i = 0; i < A; i++)
 	{
 		printf("\nInforme o %dº nome: ",(i+1));
 		fgets(nome[i],B,stdin);
 		//convertendo para minusculas
 		for (j = 0; j < B; j++)
-		{
-			//o Linux não da suporte para função strlwr();
 			nome[i][j]=tolower(nome[i][j]);
-		}
-		if (SISTEMA=='D')
-			system("cls");
-		else
-			system("clear");
-
+			//o Linux não da suporte para função strlwr();
+		cab();
 	}
-	if (SISTEMA=='D')
-		system("cls");
-	else
-		system("clear");
-	
+	cab();	
 	tot(nome);
 	for (i = 0; i < A; i++)
 	{
@@ -101,9 +58,7 @@ int main()
 		
 		//zerando matriz
 		for (int y = 0; y <= B; y++)
-		{
 			vogal[i][y]=0;
-		}
 		while(j<strlen(nome[i])){
 			//diferenciando vogais de consoantes e contando
 			switch(nome[i][j]){
@@ -127,9 +82,7 @@ int main()
 				default:
 				consoante[i][con[i]]=nome[i][j];
 				if (j==0)
-				{
 					tipo[i][0]='c';
-				}
 				con[i]++;
 			}
 			j++;
@@ -141,9 +94,7 @@ int main()
 			for (int e = 0; e < con[i]; e++)
 			{
 				if (consoante[i][e]==consoante[i][d])
-				{
 					igual[i]++;
-				}
 				t++;
 			}
 		}
@@ -153,17 +104,13 @@ int main()
 		vd[i]-=1;
 
 		for (int k = 0; k < B; k++)
-		{
 			vog+=vogal[i][k];
-		}
 		//testando
 		nome[i][0]=toupper(nome[i][0]);
 		for (int h = 0; h < strlen(nome[i]); h++)
 		{
 			if (nome[i][h]==' ')
-			{
 				nome[i][h+1]=toupper(nome[i][h+1]);
-			}
 		}
 
 		usleep(200000);
@@ -175,12 +122,9 @@ int main()
 		usleep(200000);
 		printf("\nCONSOANTES: %s \nCONSOANTES DIFERENTES: %d\n",consoante[i],vd[i]);
 		if (tipo[i][0]=='c')
-		{
 			printf("\nA 1ª LETRA DO %i° NOME É CONSOANTE\n",(i+1));
-		}
-		else{
+		else
 			printf("\nA 1ª LETRA DO %i° NOME É VOGAL\n",(i+1));
-		}
 		usleep(200000);
 
 		for (int v = 0; v <=vog; v++){
@@ -188,34 +132,24 @@ int main()
 			for(j = 0; j <=v; j++){
 	    		// Caso a primeira letra do nome seja vogal
 				if(tipo[i][0]!='c')
-				{
 					total += v * j;
-				}
 	    		// Caso a primeira letra do nome seja consoante
-				else{
+				else
 					total += v + j;
-				}
 			}
 		}
 		usleep(200000);
 		printf("\nRESULTADO DA OPERAÇÃO: %d\n",total);
 		usleep(200000);
 		printf("\nRESULTADO FINAL: %d\n",(totletras[i]+vog+vd[i]+total));
-		printf("======================================================\n\n");
+		linha();
 	}
-	if (SISTEMA=='U')
-	{
-		getchar();
-	}
-	else{
-		system("pause");
-	}
+	getchar();
 	printf("\tDESEJA REFAZER O TESTE COM MAIS 2 NOMES?\nS=SIM\nQUALQUER OUTRA=NÃO");
 	scanf("%c",&refazer);
 	refazer=toupper(refazer);
 	if (refazer=='S')
-	{
 		goto inicio;
-	}
+	fim();
 	return 0;
 }
